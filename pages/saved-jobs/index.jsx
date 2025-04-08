@@ -10,20 +10,20 @@ const savedJobs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      const fetchData = async () => {
-        try {
-          const data = await getSavedJobsDetails();
-          setSavedJobs(data);
-          setLoading(false);
-        } catch (e) {
-          console.log(e);
-          setLoading(false);
-        }
-      };
-      fetchData();
-      // console.log("data:", fetchData);
-    }, 3000);
+    // setTimeout(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getSavedJobsDetails();
+        setSavedJobs(data);
+        setLoading(false);
+      } catch (e) {
+        console.log(e);
+        setLoading(false);
+      }
+    };
+    fetchData();
+    // console.log("data:", fetchData);
+    // }, 3000);
   }, []);
 
   return (
