@@ -11,12 +11,14 @@ import {
   Grid,
   Box,
 } from "@mui/material";
+import SuccessfulApplicationMessage from "@/components/apply/SuccessfulApplicationMessage";
 
 const applyJob = () => {
   const router = useRouter();
   const { id } = router.query;
   const [job, setJob] = useState({});
   const [loading, setLoading] = useState(true);
+  const [submitted, setSubmitted] = useState(false);
 
   // console.log(getJob(1));
 
@@ -28,7 +30,7 @@ const applyJob = () => {
   }, [router.isReady, id]);
 
   const handleApplicationSubmit = () => {
-    console.log("Submitted");
+    setSubmitted(true);
   };
 
   console.log(job);
@@ -52,10 +54,14 @@ const applyJob = () => {
 
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
-              <ApplyJobForm
-                job={job}
-                submitCallback={handleApplicationSubmit}
-              />
+              {submitted ? (
+                <SuccessfulApplicationMessage job={job} />
+              ) : (
+                <ApplyJobForm
+                  job={job}
+                  submitCallback={handleApplicationSubmit}
+                />
+              )}
             </Grid>
             <Grid item xs={12} md={6}>
               <ApplyJobDetails job={job} />

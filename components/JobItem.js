@@ -8,7 +8,7 @@ import Card from "@mui/material/Card";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import CardActions from "@mui/material/CardActions";
-
+import WorkIcon from "@mui/icons-material/Work";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 import { postSavedJob } from "@/utils/api/jobs";
@@ -75,6 +75,10 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
           <CardActions
             sx={{ justifyContent: "flex-end", padding: 0, marginTop: 2 }}
           >
+            <Button variant="contained" color="success" onClick={handleApply}>
+              <WorkIcon sx={{ paddingRight: 2 }} />
+              Apply
+            </Button>
             <Button
               startIcon={<BookmarkIcon />}
               variant="contained"
@@ -82,9 +86,6 @@ export default function JobItem({ job, savedJobs, setSavedJobs }) {
               disabled={saved}
             >
               {saved ? "Saved" : "Save for later"}
-            </Button>
-            <Button variant="contained" color="secondary" onClick={handleApply}>
-              Apply
             </Button>
           </CardActions>
         </Box>

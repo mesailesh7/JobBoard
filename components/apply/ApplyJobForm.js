@@ -12,7 +12,7 @@ export default function ApplyJobForm({ job, submitCallback }) {
     e.preventDefault();
 
     const application = {
-      jobId: job.jobId,
+      jobId: job.id,
       fullName: fullName,
       email: email,
     };
