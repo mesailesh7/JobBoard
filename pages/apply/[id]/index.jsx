@@ -18,14 +18,14 @@ const applyJob = () => {
   const [job, setJob] = useState({});
   const [loading, setLoading] = useState(true);
 
-  console.log(getJob(1));
+  // console.log(getJob(1));
 
   useEffect(() => {
     getJob(id).then((job) => {
       setJob(job);
       setLoading(false);
     });
-  }, [router.isReady]);
+  }, [router.isReady, id]);
 
   const handleApplicationSubmit = () => {
     console.log("Submitted");
@@ -53,7 +53,7 @@ const applyJob = () => {
           <Grid container spacing={3}>
             <Grid item xs={12} md={6}>
               <ApplyJobForm
-                jobId={job.id}
+                job={job}
                 submitCallback={handleApplicationSubmit}
               />
             </Grid>

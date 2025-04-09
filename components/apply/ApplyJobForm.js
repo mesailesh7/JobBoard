@@ -12,10 +12,12 @@ export default function ApplyJobForm({ job, submitCallback }) {
     e.preventDefault();
 
     const application = {
-      jobId: job.id,
+      jobId: job.jobId,
       fullName: fullName,
       email: email,
     };
+
+    console.log(job.id);
 
     const result = await postApplication(application);
 
@@ -25,7 +27,7 @@ export default function ApplyJobForm({ job, submitCallback }) {
   };
 
   return (
-    <form style={{ width: `90%` }}>
+    <form style={{ width: `90%` }} onSubmit={handleSubmit}>
       <Stack direction="column" spacing={2}>
         <TextField
           id="full-name"
@@ -34,6 +36,7 @@ export default function ApplyJobForm({ job, submitCallback }) {
           fullWidth
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
+          required
         />
         <TextField
           id="email"
@@ -43,6 +46,7 @@ export default function ApplyJobForm({ job, submitCallback }) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
+          required
         />
         <Button variant="contained" color="success" type="submit">
           Submit Application
