@@ -7,12 +7,12 @@ import { deleteSavedJob } from "@/utils/api/jobs";
 
 export default function SavedJobItem({ savedJob }) {
   console.log(savedJob);
-  const { id } = savedJob;
+  const { id, jobId } = savedJob;
 
   const router = useRouter();
 
   const handleApply = () => {
-    router.push(`/apply/${id}`);
+    router.push(`/apply/${jobId}`);
     console.log(id);
   };
 
