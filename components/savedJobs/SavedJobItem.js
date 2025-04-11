@@ -13,13 +13,11 @@ export default function SavedJobItem({ savedJob }) {
 
   const handleApply = () => {
     router.push(`/apply/${jobId}`);
-    console.log(id);
   };
 
   const handleDelete = () => {
     deleteSavedJob(id);
     router.reload();
-    console.log(id);
   };
   return (
     <Card variant="outlined" sx={{ marginBottom: 2, width: "90%" }}>
