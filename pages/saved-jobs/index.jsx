@@ -10,7 +10,6 @@ const savedJobs = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // setTimeout(() => {
     const fetchData = async () => {
       try {
         const data = await getSavedJobsDetails();
@@ -22,8 +21,6 @@ const savedJobs = () => {
       }
     };
     fetchData();
-    // console.log("data:", fetchData);
-    // }, 3000);
   }, []);
 
   return (
