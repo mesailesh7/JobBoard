@@ -16,7 +16,7 @@ export default function NavBar() {
             <Link href="/saved-jobs">Saved Jobs</Link>
           </Typography>
           <Typography variant="h6" component="div" sx={{ paddingRight: 2 }}>
-            Applications
+            <Link href="/applications">Applications</Link>
           </Typography>
         </Toolbar>
       </AppBar>
