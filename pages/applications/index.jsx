@@ -12,6 +12,12 @@ const Applications = () => {
 
   console.log(applications);
 
+  const handleDelete = async (id) => {
+    await deleteApplication(id);
+    setApplications(applications.filter((app) => app.id !== id));
+    console.log(applications);
+  };
+
   return <div>applications</div>;
 };
 
