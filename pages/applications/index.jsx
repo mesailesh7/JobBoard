@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+
 import {
   getApplications,
   deleteApplication,
   getJob,
 } from "../../utils/api/jobs";
+
 import {
   Box,
   Typography,
@@ -13,7 +15,6 @@ import {
   Card,
   CardContent,
   Button,
-  Divider,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import NavBar from "@/components/NavBar";
@@ -31,17 +32,19 @@ const Applications = () => {
     // const id = applications.map((app) => app.jobId);
     // console.log(id);
     // console.log(getJob(2));
-    const getJobDetail = () => {
-      applications.map(async (app) => {
-        const jobData = await getJob(app.jobId);
-        setJobDetail((jobData) => [...prev, jobData]);
-      });
-    };
     getJobDetail();
   }, []);
 
+  const getJobDetail = () => {
+    applications.map((app) => {
+      const jobData = getJob(app.jobId);
+      // const jobData = await getJob(applications.jobId);
+      setJobDetail({ ...jobDetail, jobData });
+    });
+  };
+
   console.log(jobDetail);
-  console.log(applications);
+  console.log(applications.jobId);
   // console.log(applications);
 
   const handleDelete = async (id) => {
