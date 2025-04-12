@@ -20,25 +20,28 @@ import NavBar from "@/components/NavBar";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
-  const [jobDetail, setJobDetail] = useState({});
+  const [jobDetail, setJobDetail] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getApplications().then((data) => setApplications(data));
+    getApplications().then((data) => setApplications([...data]));
     setLoading(false);
-
-    const getJobDetail = () => {
-      applications.map(async (app) => {
-        const jobData = await getJob(app.jobId);
-      });
-    };
 
     // Trying to get job with the jobdetails with Jobid
     // const id = applications.map((app) => app.jobId);
     // console.log(id);
     // console.log(getJob(2));
+    const getJobDetail = () => {
+      applications.map(async (app) => {
+        const jobData = await getJob(app.jobId);
+        setJobDetail((jobData) => [...prev, jobData]);
+      });
+    };
+    getJobDetail();
   }, []);
 
+  console.log(jobDetail);
+  console.log(applications);
   // console.log(applications);
 
   const handleDelete = async (id) => {
@@ -88,6 +91,12 @@ const Applications = () => {
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
                             Job ID: {application.jobId}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Job Title: {jobDetail.title}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Comapny: {jobDetail.company}
                           </Typography>
                         </Grid>
                         <Grid
