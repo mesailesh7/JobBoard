@@ -29,16 +29,13 @@ const Applications = () => {
     setLoading(false);
 
     // Trying to get job with the jobdetails with Jobid
-    // const id = applications.map((app) => app.jobId);
-    // console.log(id);
-    // console.log(getJob(2));
+    // Didn't work but will try later
     getJobDetail();
   }, []);
 
   const getJobDetail = () => {
     applications.map((app) => {
       const jobData = getJob(app.jobId);
-      // const jobData = await getJob(applications.jobId);
       setJobDetail({ ...jobDetail, jobData });
     });
   };
@@ -95,12 +92,12 @@ const Applications = () => {
                           <Typography variant="body2" color="text.secondary">
                             Job ID: {application.jobId}
                           </Typography>
-                          <Typography variant="body2" color="text.secondary">
+                          {/* <Typography variant="body2" color="text.secondary">
                             Job Title: {jobDetail.title}
                           </Typography>
                           <Typography variant="body2" color="text.secondary">
                             Comapny: {jobDetail.company}
-                          </Typography>
+                          </Typography> */}
                         </Grid>
                         <Grid
                           item
