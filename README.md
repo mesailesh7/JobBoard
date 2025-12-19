@@ -102,3 +102,6 @@ The application interacts with a local REST API located in `pages/api`. Key util
 * **`postApplication(data)`**: Submits the user's application form data.
 
 ---
+
+## Screenshot
+![Expected Output](readme-gifs/expected_output.gif)
