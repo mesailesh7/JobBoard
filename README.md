@@ -1,122 +1,104 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/n04VrHHJ)
-# Assignment 4b - Routing and Pages with our Job Board.
+# 📋 Next.js Job Board Application
 
-This assignment will test your knowledge using routing in a Next.js application using static and dynamic routes. It will also continue to test your knowledge of using REST APIs when a page is loaded.
+This project is a functional Job Board application built with **Next.js**. It demonstrates advanced routing capabilities (static and dynamic), REST API integration, state management, and responsive UI design using Material UI.
 
-You will be assessed on your knowledge of the following:
-- using routing in a Next.js application
-- using route parameters from the URL in a Next.js application
-- making requests to a REST API in a Next.js application.
-- managing the state of the result of REST API calls
+---
 
-**IMPORTANT NOTE**: this project will be using a similar backend to assignment 4a. It was implemented as part of the `Next.js pages/api` folder which are endpoints that run from the same domain as the frontend. Please refer to the [backend documentation for the endpoints](./prisma-backend-tools/README.md).
+## 📚 Table of Contents
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Getting Started](#-getting-started)
+- [Project Structure & Routing](#-project-structure--routing)
+- [API Integration](#-api-integration)
 
-## Steps
+---
 
-Note: If you're getting an error when hitting the API endpoints please run `npm run generate-db` to generate the database and then run `npm run dev` to start the server.
+## 🌟 Features
 
+The application has been fully implemented with the following core functionalities:
 
-1. Create the NavBar with the links to the correct pages.
-    - Change the `components/NavBar.js` to have the following links:
-      - Home which will navigate to the home page.
-      - Saved jobs which will navigate to the saved jobs page you will create with the path `/saved-jobs`.
-      - Please do this with the `Link` component provided by Next.js.
+### 1. Navigation
+* **Global NavBar:** A persistent navigation bar utilizing the Next.js `Link` component to seamlessly switch between the **Home** page and the **Saved Jobs** page without full page reloads.
 
-2. Create a page for the path `/saved-jobs` path that will list the items, give you the ability to delete items, and navigate to apply to saved jobs.
-    - create a page in the pages router that will have the following page path `/saved-jobs`.
-    - Use the `useEffect` hook to load the saved jobs when the page is loaded, this should use the `getSavedJobsDetails` function in the `utils/api/jobs.js` file to get the saved jobs.
-    - When the page is loading show a loading page, or spinner of sorts.
-    - Create the page using the components in the `components/savedJobs` folder to display the saved jobs. This should look like the "Expected Output/Functionality" section below.
+### 2. Saved Jobs Dashboard (`/saved-jobs`)
+* **Data Fetching:** Automatically fetches saved job data upon page load using `useEffect`.
+* **Loading States:** Displays a loading indicator while data is being retrieved.
+* **Management:**
+    * **Delete:** Users can remove jobs from their saved list. This triggers a router reload to refresh the list instantly.
+    * **Apply:** Users can click "Apply" on any saved job to be redirected to the specific application page.
 
-3. Add the functionality on the `SavedJobItem` components' buttons.
-    - import the `useRouter` hook from `next/router` and initialize it in the component.
-    - If the user clicks on "apply" for this job then the user should be redirected to the apply for this job page. The path for this page should be `/apply/[id]` where the id is the job id. Note: you'll be creating this page in the next few steps.
-      - Please do this with the `push` method from the router instance (where the router instance is from the `useRouter` hook)
-    - If the user clicks on "delete" for this job then the user should use the function `deleteSavedJob` and "reload" the page using the router initialized with the `useRouter` hook (see https://nextjs.org/docs/pages/api-reference/functions/use-router#routerreload). The job clicked on should be removed from the saved jobs list, please look at the "Expected Output/Functionality" section below for how it should look.
+### 3. Dynamic Application Pages (`/apply/[id]`)
+* **Dynamic Routing:** Uses Next.js dynamic routes to render unique pages for every job ID.
+* **Responsive Layout:** Built with **MUI Grid**:
+    * **Desktop:** Split screen (Form on Left / Details on Right).
+    * **Mobile:** Stacked layout (Form on Top / Details on Bottom).
+* **Application Form:**
+    * Fully controlled form inputs.
+    * Submits application data via a POST request to the backend.
+    * **Success Feedback:** Upon successful submission, the form is replaced by a success message component.
 
-4. Create the "Apply for job Page"
-    - Make a page using the pages router that will have the following path `/apply/[id]` where the id is the job id.
-    - Use the `useRouter` hook to get the job id
-    - use the `useEffect` hook to load the specific job when the page is loaded. Note: use the `router.isReady` as a dependency and in your effect (see https://nextjs.org/docs/pages/api-reference/functions/use-router#router-object). You can use the `getJob` function in the `utils/api/jobs.js` file to get the job details.
-    - use the components in the `components/apply` folder to display the job details and the form to apply for the job.
-      - Note: the form should be on the left and the job details should be on the right if it's full screen, and if it's a half screen (like the "Expected Output/Functionality" section below) the form should be on top and the job details on the bottom. You `Grid` component from MUI to layout this page.
+---
 
-5. Add the functionality to be able to apply for the job successfully in the `components/apply/ApplyJobForm` component.
-    - When the form is submitted it should make a post request to the `applications` endpoint with the correct jobId, you can use the function `postApplication` in the `utils/api/jobs.js` file to make the post request.
-      - Ensure that all of the inputs are using state and are controlled properly.
-      - Refer to the documentation of the endpoints (specifically under the header "POST an application") in the [backend documentation](./prisma-backend-tools/README.md#post-an-application) to see what the request body should look like.
-    - If the job is saved the form should change to the `components/apply/SuccessfulApplicationMessage` component.
-      - Use the `submitCallback` prop to implement this behaviour (should be passed a function from the apply page).
-    - Please take a look at the "Expected Output/Functionality" section below for how it should look.
+## 🛠 Tech Stack
 
-6. Add the functionality to navigate to the specific Job Application page from the `index.js` page, in each `JobItem` component.
-  - Please do this with the `push` method from the router instance (where the router instance is from the `useRouter` hook)
-  -  Please take a look at the "Expected Output/Functionality" section below for how it should look.
+* **Framework:** [Next.js](https://nextjs.org/) (Pages Router)
+* **Frontend Library:** React
+* **Styling:** Material UI (MUI)
+* **Backend/Database:** Prisma & SQLite (Local API routes)
+* **HTTP Client:** Fetch API (encapsulated in utility functions)
 
-## Expected Output/Functionality
-The expected output should look like the following:
+---
 
-![Expected output for assignment 4b](readme-gifs/expected_output.gif)
+## 🚀 Getting Started
 
+Follow these instructions to run the project locally.
 
-## Bonus (only attempt this if you are done with the above steps)
-- Create a page with the path `/applications` that will list the jobs you've applied for.
-  - you should be able to delete applications to a specific job.
-  - The NavBar should have a link to this page as well.
-  - To get full marks this should look cohesive with the rest of the application, no marks for stuff that will not look good.
-## Challenges (only attempt this if you have way too much time on your hands)
-- Change this assignment to use React Server Components and Suspense to make requests and handle the state of the project.
-- In the React Server Components using the prima client in `prisma-backend-tools/localClient` change the database to create, read, update, and delete records in the database of the application.
+### Prerequisites
+* Node.js installed
+* npm installed
 
-## Important note about progress on the assignments
+### Installation
 
-- **You must demonstrate incremental development of your solution.**
-- This means that you must begin work on your solution as soon as possible and commit often to the assignment repository.
-- Each commit must demonstrate functional improvements to the solution.
-- If you submit code that differs greatly from what was demonstrated in class, it must be documented (e.g. comments) and you may be asked to provide a verbal explanation of how the code works to your instructor.
-- **Failure to show incremental work during the assignment period, or failure to document techniques used that were not shown in class, will result in loss of marks of up to 50%.**
+1.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
 
-## Marking Key
+2.  **Generate the Database:**
+    *Important:* You must run this command to initialize the local Prisma database before starting the server.
+    ```bash
+    npm run generate-db
+    ```
 
-| Marks | Tasks |
-|------------------|------------------|
-| 3 | Navbar has the correct link paths and the links are functions |
-| 5 | "Saved job" page has the correct path, loads the "saved jobs" properly while handling the loading state, the page looks like the expected functionality section. |
-| 5 | The "Saved Job Item" component has the functionality to navigate to the new pages if "apply" button is clicked and delete the job item if the "delete" button is clicked |
-| 5 | "Apply for Job" page is created with the correct path, loads the "job" properly while handling the loaded state, and the page looks like the "Expected output and functionality" section |
-| 5 | The "Apply for Job" form has the functionality to post, shows the success message properly and at the right time. |
-| 3 | Can navigate to the "Apply for Job" page from the "index" page |
-| -5 | Project runs without errors, and functionality looks like the images provided. |
-| -3 | Code is clean and well-organized, and components created in the right location |
-| (3) | Bonus is done to the spec and looks cohesive with the rest of the application. |
-| -50% | Code not incremental, not demonstrating functional improvements, code differs from what was shown in class, verbal explanation not sufficient |
+3.  **Run the Development Server:**
+    ```bash
+    npm run dev
+    ```
 
-## Marking Rubric
-### 5 marks
-| Marks | 5 marks Criteria |
-|------------------|------------------|
-| 5 | Task was completed with the highest of proficiency adhering to best practices and followed subject matter guidelines all tasks were completed to a professional standard. |
-| 4 | Task was completed well some minor mistakes. Well above average work shows good understanding of the task and high degree of competence |
-| 3  | Satisfactory work some features missing or incorrectly implemented. Show a moderate level of understanding in the task with room for improvement. |
-| 2  | Below average work. Task was poorly complete. Show understanding of the task and the requirements to implement but implementation was poorly executed. |
-| 1  | Some of the task was completed. Showed a lack of understanding in the subject matter and very poorly executed. |
-| 0  | Not completed. |
+4.  **Access the App:**
+    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3 marks
-| Marks | 3 marks Criteria |
-|------------------|------------------|
-| 3 | Proficient shows a high degree of competence in completing task. |
-| 2 | Capable, above-average degree of competence in completing the task. |
-| 1 | Satisfactory shows a satisfactory degree of competence in completing the task. |
-| 0 | Shows a limited degree of competence in completing the task. |
+---
 
-### 2 marks
+## 📂 Project Structure & Routing
 
-| Marks | 2 marks Criteria |
-|------------------|------------------|
-| 1 | Task Completed satisfactorily   |
-| 0 | Task was not executed. |
+The project follows standard Next.js routing conventions:
 
-### Negative Marks
+| Page Path | Description |
+| :--- | :--- |
+| `pages/index.js` | **Home Page**: Lists available jobs. Includes functionality to navigate directly to the application page. |
+| `pages/saved-jobs.js` | **Saved Jobs**: Lists jobs saved by the user. Allows deletion and navigation to apply. |
+| `pages/apply/[id].js` | **Apply Page**: A dynamic route that captures the `jobId` from the URL parameters to fetch specific job details and handle applications. |
 
-Negative marks will be given for the assignment at the discretion of the instructor with a maximum of -5 marks for this assignment. The default will be 0 if it is correct.
+---
+
+## 📡 API Integration
+
+The application interacts with a local REST API located in `pages/api`. Key utility functions used for data fetching (located in `utils/api/jobs.js`) include:
+
+* **`getSavedJobsDetails()`**: Fetches the list of saved jobs.
+* **`deleteSavedJob(id)`**: Removes a job from the saved list.
+* **`getJob(id)`**: Fetches details for a specific job based on ID.
+* **`postApplication(data)`**: Submits the user's application form data.
+
+---
